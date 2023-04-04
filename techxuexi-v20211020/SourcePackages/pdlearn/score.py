@@ -77,20 +77,22 @@ def get_score(cookies):
 
     total = int(json.loads(total_json)["data"]["score"])
     #userId = json.loads(total_json)["data"]["userId"]
-    user_info = requests.get("https://pc-api.xuexi.cn/open/api/user/info", cookies=jar,
-                             headers={'Cache-Control': 'no-cache'}).content.decode("utf8")
-    userId = json.loads(user_info)["data"]["uid"]
-    userName = json.loads(user_info)["data"]["nick"]
+    #user_info = requests.get("https://pc-api.xuexi.cn/open/api/user/info", cookies=jar,
+    #                         headers={'Cache-Control': 'no-cache'}).content.decode("utf8")
+    #userId = json.loads(user_info)["data"]["uid"]
+    #userName = json.loads(user_info)["data"]["nick"]
     # score_json = requests.get("https://pc-api.xuexi.cn/open/api/score/today/queryrate", cookies=jar,
     #                          headers={'Cache-Control': 'no-cache'}).content.decode("utf8")
     # today_json = requests.get("https://pc-api.xuexi.cn/open/api/score/today/query", cookies=jar,
     #                          headers={'Cache-Control': 'no-cache'}).content.decode("utf8")
     today = 0
     # today = int(json.loads(today_json)["data"]["score"])
-    score_json = requests.get("https://pc-proxy-api.xuexi.cn/api/score/days/listScoreProgress?sence=score&deviceType=2", cookies=jar,
+    score_json = requests.get("https://pc-proxy-api.xuexi.cn/delegate/score/days/listScoreProgress?sence=score&deviceType=2", cookies=jar,
                               headers={'Cache-Control': 'no-cache'}).content.decode("utf8")
     dayScoreDtos = json.loads(score_json)["data"]
     today = dayScoreDtos["totalScore"]
+    userId = dayScoreDtos["userId"]
+    userName = str(userId)
     rule_list = [1, 2, 9, 1002, 1003, 6, 5, 4]
     score_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]  # 长度为十
     for i in dayScoreDtos["taskProgress"]:
